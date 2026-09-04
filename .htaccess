@@ -1,0 +1,27 @@
+# Canonicalize on https://roobai.fyi (no www, always https).
+# Upload this file to public_html/ alongside index.html.
+#
+# Before this works for the www host, Hostinger's SSL must already cover
+# www.roobai.fyi — in hPanel: Websites > roobai.fyi > SSL, make sure the
+# certificate lists both roobai.fyi and www.roobai.fyi (or is a wildcard),
+# then turn on "Force HTTPS". If www isn't in the certificate yet, requests
+# to https://www.roobai.fyi fail before this file ever runs.
+
+RewriteEngine On
+
+# 1) www -> non-www (any scheme)
+RewriteCond %{HTTP_HOST} ^www\.roobai\.fyi$ [NC]
+RewriteRule ^(.*)$ https://roobai.fyi/$1 [L,R=301]
+
+# 2) http -> https (non-www host only, since rule 1 already sent www away)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://roobai.fyi/$1 [L,R=301]
+
+# Basic caching for static assets, since this is a plain static site
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
