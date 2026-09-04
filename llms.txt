@@ -1,0 +1,28 @@
+# Roobai
+
+> Roobai is a monthly money-readiness app for people in urban India. It shows what you've spent, what bills are still coming this month, and how much is safe to spend, so the gap between paydays feels less tense.
+
+Roobai is aimed at salaried and self-employed adults in India, roughly 21 to 60, who juggle rent, EMIs, utilities and subscriptions across several UPI apps and cards. It is not an expense tracker and not a rules-based budgeting app. It looks forward: what is committed, what is coming, and what is genuinely safe to spend.
+
+## What Roobai does
+
+- **Automatic spending overview**: transactions are organised on their own, with no manual logging. The user only confirms or corrects.
+- **A budget that drafts itself**: recurring bills the user has approved become budget lines automatically, grouped as Income, Bills & EMIs, Savings & Investments and Flexible Spending. Flexible categories show spend-so-far against the usual amount during the month.
+- **A calendar of what's coming**: rent, EMIs, subscriptions and irregular bills (a two-monthly gas cylinder, a half-yearly internet renewal, a yearly recharge) are placed on a month view before they land, each marked as confirmed or estimated.
+- **Safe-to-spend**: one figure for the current month, worked out as expected income minus fixed obligations minus a small buffer for uncertainty. It is not the bank balance and not a strict budget.
+- **Pat**: an in-app assistant that answers everyday money questions ("can I afford a ₹2,500 dinner this weekend?") from the user's own income, spending and commitments, in plain language. Pat is not a licensed financial advisor and does not recommend investments or stocks.
+
+## Privacy
+
+Roobai reads the payment updates a user already receives on their phone. It never asks for a net-banking password, never moves money, does not sell data, and does not run ads. Data is encrypted and the user can disconnect at any time.
+
+## Status
+
+Early access, invite by waitlist, at https://roobai.fyi/. Free during early access; pricing not yet set.
+
+## Key pages
+
+- Home: https://roobai.fyi/
+- How it works: https://roobai.fyi/#how
+- Pat (the assistant): https://roobai.fyi/#pat
+- FAQ: https://roobai.fyi/#faq
