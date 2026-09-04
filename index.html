@@ -480,9 +480,10 @@
       <p style="font-size:17px;line-height:1.6;color:#a9a293;margin:0 auto 34px;font-weight:500;max-width:440px">We're letting people in a few at a time. Leave your email and we'll tell you when it's your turn.</p>
       <form id="waitlist-form" style="display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center">
         <input id="waitlist-email" autocomplete="email" type="email" name="email" required placeholder="you@email.com" style="flex:1;min-width:220px;height:52px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:0 18px;font-size:15px;color:#f5f2ec;font-family:inherit;outline:none">
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <button type="submit" style="height:52px;background:#f0ede6;color:#211f1a;font-weight:700;font-size:15px;border:none;border-radius:14px;padding:0 26px;cursor:pointer;font-family:inherit">Get early access</button>
       </form>
-      <div id="waitlist-msg" style="font-size:12.5px;color:#77715f;font-weight:500;margin-top:16px">Free while we're in early access. Your data stays yours.</div>
+      <div id="waitlist-msg" aria-live="polite" style="font-size:12.5px;color:#77715f;font-weight:500;margin-top:16px">Free while we're in early access. Your data stays yours.</div>
     </div>
   </div>
 </div>
@@ -499,13 +500,35 @@
 
 <script>
 (function(){
+  // Paste the Apps Script Web App URL here (it ends with /exec). Until then
+  // the form still shows a confirmation but nothing is saved.
+  var WAITLIST_ENDPOINT = "PASTE_APPS_SCRIPT_WEB_APP_URL";
+
   var f=document.getElementById('waitlist-form');
+  var m=document.getElementById('waitlist-msg');
+  function ok(){ if(m)m.textContent="You're on the list. We'll be in touch soon."; if(f)f.reset(); }
+  function fail(){ if(m)m.textContent="Hmm, that didn't go through. Please try again."; }
+
   if(f){f.addEventListener('submit',function(e){
     e.preventDefault();
-    var m=document.getElementById('waitlist-msg');
-    if(m)m.textContent="You're on the list. We'll be in touch soon.";
-    f.reset();
+    var email=(document.getElementById('waitlist-email')||{}).value||"";
+    var company=(f.querySelector('[name=company]')||{}).value||"";
+    if(m)m.textContent="Adding you…";
+
+    if(WAITLIST_ENDPOINT.indexOf("PASTE_")===0){ ok(); return; }
+
+    var body=JSON.stringify({email:email,company:company});
+    fetch(WAITLIST_ENDPOINT,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:body})
+      .then(function(r){return r.json().catch(function(){return {result:"ok"};});})
+      .then(function(d){ (d&&d.result==="error")?fail():ok(); })
+      .catch(function(){
+        // Some browsers block reading the cross-origin response; resend
+        // fire-and-forget and assume it landed.
+        fetch(WAITLIST_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:body})
+          .then(ok).catch(ok);
+      });
   });}
+
   var items=document.querySelectorAll('.rb-reveal');
   if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-in');});return;}
   var io=new IntersectionObserver(function(entries){
