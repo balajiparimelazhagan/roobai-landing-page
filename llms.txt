@@ -26,3 +26,5 @@ Early access, invite by waitlist, at https://roobai.fyi/. Free during early acce
 - How it works: https://roobai.fyi/#how
 - Pat (the assistant): https://roobai.fyi/#pat
 - FAQ: https://roobai.fyi/#faq
+- Privacy Policy: https://roobai.fyi/privacy
+- Terms of Service: https://roobai.fyi/terms
