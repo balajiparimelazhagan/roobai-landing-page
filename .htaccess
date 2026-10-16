@@ -17,12 +17,12 @@ RewriteRule ^(.*)$ https://roobai.fyi/$1 [L,R=301]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://roobai.fyi/$1 [L,R=301]
 
-# 3) Clean URLs for the legal pages: /privacy and /terms serve the .html files,
+# 3) Clean URLs for the legal pages: /privacy, /terms and /delete-account serve the .html files,
 #    and the old .html addresses redirect to the clean ones.
-RewriteCond %{THE_REQUEST} \s/(privacy|terms)\.html[\s?] [NC]
-RewriteRule ^(privacy|terms)\.html$ /$1 [L,R=301,NC]
+RewriteCond %{THE_REQUEST} \s/(privacy|terms|delete-account)\.html[\s?] [NC]
+RewriteRule ^(privacy|terms|delete-account)\.html$ /$1 [L,R=301,NC]
 
-RewriteRule ^(privacy|terms)/?$ $1.html [L,NC]
+RewriteRule ^(privacy|terms|delete-account)/?$ $1.html [L,NC]
 
 # Basic caching for static assets, since this is a plain static site
 <IfModule mod_expires.c>
